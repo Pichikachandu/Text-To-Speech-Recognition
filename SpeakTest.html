@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech in JavaScript</title>
+    <link rel="stylesheet" href="SpeakTest.css">
+    <script src="SpeakTest.js" type="module"></script>
+</head>
+<body>
+    <div class="container">
+        <label for="text">Text to speak:</label>
+        <textarea id="text"></textarea>
+        <button id="speak">Speak Text</button>
+        <button id="startRecognition">Start Speech Recognition</button>
+        <p id="recognizedText"></p>
+    </div>
+
+    <script>
+        const textEL = document.getElementById('text');
+        const speakEL = document.getElementById('speak');
+        const startRecognitionEL = document.getElementById('startRecognition');
+        const recognizedTextEL = document.getElementById('recognizedText');
+
+        speakEL.addEventListener('click', speakText);
+
+        function speakText() {
+            const text = textEL.value.trim();
+            if (text !== "") {
+                const utterance = new SpeechSynthesisUtterance(text);
+                // Choose a female voice. You may need to check available voices on the user's system.
+                const voices = window.speechSynthesis.getVoices();
+                const femaleVoice = voices.find(voice => voice.name.includes('Female'));
+                utterance.voice = femaleVoice || voices[0]; // Use the first available voice if a female voice is not found.
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Speech Recognition
+        const recognition = new webkitSpeechRecognition();
+        recognition.continuous = true;
+        recognition.lang = 'en-US';
+
+        startRecognitionEL.addEventListener('click', startSpeechRecognition);
+
+        function startSpeechRecognition() {
+            recognition.start();
+        }
+
+        recognition.onresult = function (event) {
+            const result = event.results[event.resultIndex][0].transcript;
+            recognizedTextEL.textContent = 'Recognized Text: ' + result;
+        };
+
+        recognition.onerror = function (event) {
+            console.error('Speech recognition error', event);
+        };
+
+        recognition.onend = function () {
+            console.log('Speech recognition ended');
+        };
+    </script>
+</body>
+</html>

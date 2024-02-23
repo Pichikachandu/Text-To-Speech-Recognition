@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0; /* Add padding: 0 to reset padding */
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0; /* Add a background color */
+}
+
+.container {
+    background-color: #4FBDBA;
+    display: grid;
+    gap: 20px;
+    width: 500px;
+    max-width: calc(100vw - 40px);
+    padding: 30px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+}
+
+#text {
+    display: block;
+    height: 100px;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    border: none;
+    resize: none;
+    padding: 8px 10px;
+    outline: 2px solid rgba(120, 120, 120, 0.623);
+}
+
+button {
+    padding: 10px;
+    background: #072227;
+    color: #fff;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s ease; /* Add a smooth transition effect */
+
+}
+
+button:hover {
+    background: #0a3340; /* Change background color on hover */
+}
